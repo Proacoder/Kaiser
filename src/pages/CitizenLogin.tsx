@@ -344,7 +344,7 @@ export const CitizenLogin: React.FC = () => {
                         className="w-full px-3 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-red-500 transition"
                       >
                         {MUMBAI_WARDS_DATA.map((w) => (
-                          <option key={w.ward} value={w.ward}>{w.wardName}</option>
+                          <option key={w.id} value={w.id}>{w.name}</option>
                         ))}
                       </select>
                     </div>

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
-import { useSmoothScroll } from "./SmoothScroll";
 
 export const ScrollToTopButton: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [visible, setVisible] = useState(false);
-  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +27,7 @@ export const ScrollToTopButton: React.FC = () => {
   }, []);
 
   const handleClick = () => {
-    scrollTo(0, { duration: 1 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!visible) return null;
