@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 import { complaintService } from "../services/api";
 import { MumbaiMap } from "../components/MumbaiMap";
 import { SeverityMeter } from "../components/SeverityMeter";
@@ -14,6 +15,7 @@ import {
 
 export const ReportPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -150,13 +152,13 @@ export const ReportPage: React.FC = () => {
       return;
     }
 
-    setStatusMessage("Acquiring GPS coordinates...");
+    setStatusMessage(t.detectingLocation);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const newLat = Number(pos.coords.latitude.toFixed(6));
         const newLng = Number(pos.coords.longitude.toFixed(6));
         setLocation({ lat: newLat, lng: newLng });
-        setStatusMessage("✓ Location captured via device GPS!");
+        setStatusMessage(`✓ ${t.locationDetected}: ${newLat}, ${newLng}`);
         // Re-trigger GIS resolution if AI results active
         if (unifiedAiResult) {
           handleAiAnalyze();
